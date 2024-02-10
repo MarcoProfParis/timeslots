@@ -29,23 +29,12 @@ let webhook = url.value;
     redirect: 'follow'
   };
 
- / Return temporary message immediately
-    let tempMessage = "Please checkkkk your email";
+ // Return temporary data immediately
+    let jsonString = "Please confirm your Email!!!";
 
-    try {
-        // Fetch data asynchronously
-        const response = await fetch(`${webhook}`, requestOptions);
-      
-        // Read the response body as plain text
-        const data = await response.text();
-        
-        // Update the temporary message with the actual data
-        tempMessage = data;
-    } catch (error) {
-        console.error('Error:', error);
-        // Handle errors if any
-        tempMessage = "Error occurred"; // Update temporary message with an error message
-    }
-
-    return tempMessage; // Return temporary message
+  const response = await fetch(`${webhook}`, requestOptions);
+    // const data = await response.json();
+const jsonString = await response.text();
+    // const jsonString = JSON.stringify(data);
+    return jsonString;
 };

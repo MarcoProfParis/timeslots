@@ -33,7 +33,7 @@ let webhook = url.value;
 
   const response = await fetch(`${webhook}`, requestOptions);
     // const data = await response.json();
-
+const jsonString = await response.text();
     // const jsonString = JSON.stringify(data);
     return jsonString;
 };

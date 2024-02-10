@@ -32,8 +32,8 @@ let webhook = url.value;
  
 
   const response = await fetch(`${webhook}`, requestOptions);
-    const data = await response.json();
+    // const data = await response.json();
 
-    const jsonString = JSON.stringify(data);
+    // const jsonString = JSON.stringify(data);
     return jsonString;
 };

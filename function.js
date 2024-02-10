@@ -39,11 +39,11 @@ let webhook = url.value;
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         // Read the response body as plain text
-        return response;
+        return response.text();
     })
     .then(data => {
         // Once the response is received, update the return value with the actual data
-        tempData = data.text();
+        tempData = data;
     })
     .catch(error => {
         console.error('Error:', error);

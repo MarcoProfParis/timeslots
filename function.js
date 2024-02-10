@@ -30,11 +30,24 @@ let webhook = url.value;
   };
 
  // Return temporary data immediately
-    let tempData = "Please confirm your Email";
+    let tempData = "Please Check your email";
 
-  const response = await fetch(`${webhook}`, requestOptions);
-    // const data = await response.json();
-const jsonString = await response.text();
-    // const jsonString = JSON.stringify(data);
-    return jsonString;
+    fetch(`${webhook}`, requestOptions)
+    .then(response => {
+        // Check if the response is successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Read the response body as plain text
+        return response.text();
+    })
+    .then(data => {
+        // Once the response is received, update the return value with the actual data
+        tempData = data.text();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    return tempData; // Return temporary data
 };

@@ -39,7 +39,7 @@ let webhook = url.value;
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         // Read the response body as plain text
-        return response.text();
+        return response;
     })
     .then(data => {
         // Once the response is received, update the return value with the actual data

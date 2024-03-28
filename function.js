@@ -1,52 +1,47 @@
+function convertToTimeSlot(slot) {
+    return {
+        "start_time": `${Math.floor(slot / 4) + 9}:${slot % 4 === 0 ? "00" : slot % 4 * 15}`,
+        "end_time": `${Math.floor(slot / 4) + 9}:${slot % 4 === 0 ? "15" : (slot % 4 + 1) * 15}`
+    };
+}
+
+function removeBookingsFromAvailableSlots(data) {
+  const newData = {};
+  for (const date in data) {
+    const availableSlots = data[date].available_slots;
+    const bookings = data[date].bookings;
+    
+    // Filter out bookings from available slots
+    const continuousSlots = [];
+    let currentSlot = null;
+    for (const slot of availableSlots) {
+        if (!bookings.includes(slot)) {
+            if (currentSlot === null) {
+                currentSlot = [slot];
+            } else if (currentSlot[currentSlot.length - 1] + 1 === slot) {
+                currentSlot.push(slot);
+            } else {
+                continuousSlots.push(currentSlot);
+                currentSlot = [slot];
+            }
+        }
+    }
+    if (currentSlot !== null) {
+        continuousSlots.push(currentSlot);
+    }
+    
+    // Convert slots to time intervals
+    newData[date] = { "new_available_slots": continuousSlots.map(slot => convertToTimeSlot(slot[0])) };
+  }
+  
+  return newData;
+}
+
+
 window.function = async function(json) {
   
   if (json.value === undefined) return "Enter your json";
   let jsonData = JSON.parse(json.value);
   
-console.log(jsonData);
-  const allAvailableTimeSlots = {};
-
-  for (const date in jsonData.schedule) {
-    console.log(`Processing date: ${date}`);
-    const schedule = jsonData.schedule[date];
-    if (!schedule) {
-      console.log(`No schedule found for date: ${date}`);
-      return []; // If the date is not found in the schedule, return an empty array
-    }
-    const availableSlots = schedule.available_slots;
-    const bookedSlots = schedule.bookings;
-
-    console.log(`Available slots for date ${date}:`, availableSlots);
-    console.log(`Booked slots for date ${date}:`, bookedSlots);
-
-    // Convert booked slots to milliseconds for easier comparison
-    const bookedSlotsInMs = bookedSlots.map(slot => {
-      const start = new Date(`${date}T${slot.start_time}`).getTime();
-      const end = new Date(`${date}T${slot.end_time}`).getTime();
-      return { start, end };
-    });
-
-    console.log(`Booked slots in milliseconds for date ${date}:`, bookedSlotsInMs);
-
-    // Filter available slots based on booked slots
-    const availableTimeSlots = availableSlots.filter(slot => {
-      const slotStart = new Date(`${date}T${slot.start_time}`).getTime();
-      const slotEnd = new Date(`${date}T${slot.end_time}`).getTime();
-
-      // Check if the slot overlaps with any booked slots
-      for (const bookedSlot of bookedSlotsInMs) {
-        if (slotStart >= bookedSlot.start && slotEnd <= bookedSlot.end) {
-          return false; // Slot is booked
-        }
-      }
-      return true; // Slot is available
-    });
-
-    console.log(`Available time slots for date ${date}:`, availableTimeSlots);
-
-    allAvailableTimeSlots[date] = availableTimeSlots;
-  }
-
-  console.log("All available time slots:", allAvailableTimeSlots);
-  return JSON.stringify(allAvailableTimeSlots);
-}
+const result = removeBookingsFromAvailableSlots(data);
+return result;}

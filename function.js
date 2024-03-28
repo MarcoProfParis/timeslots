@@ -56,4 +56,4 @@ window.function = async function(json) {
   
 const result = removeBookingsFromAvailableSlots(jsonData);
 console.log(`Result:`, result);
-return result;}
+return JSON.stringify(result);}

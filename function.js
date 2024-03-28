@@ -73,5 +73,5 @@ console.log(jsonData);
   }
 
   console.log("All available time slots:", allAvailableTimeSlots);
-  return allAvailableTimeSlots;
+  return JSON.stringify(allAvailableTimeSlots);
 }

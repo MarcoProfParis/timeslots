@@ -5,8 +5,8 @@
   "author": "Marc Olivier Reula",
   "params": [
     {
-      "name": "jsonData",
-      "displayName": "jsonData",
+      "name": "json",
+      "displayName": "json",
       "type": "string"
     }
   ],

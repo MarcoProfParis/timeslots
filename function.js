@@ -1,6 +1,7 @@
 window.function = async function(json) {
   
   if (json.value === undefined) return "Enter your json";
+  console.log(`No schedule found for date:`);
   console.log(json);
   let jsonData = JSON.parse(json);
 console.log(jsonData);

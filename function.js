@@ -49,12 +49,11 @@ function removeBookingsFromAvailableSlots(data) {
 
 
 
-
-
 window.function = async function(json) {
   
   if (json.value === undefined) return "Enter your json";
   let jsonData = JSON.parse(json.value);
   
 const result = removeBookingsFromAvailableSlots(jsonData);
+console.log(result);
 return result;}

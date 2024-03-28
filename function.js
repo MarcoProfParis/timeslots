@@ -1,4 +1,5 @@
 window.function = async function(jsonData) {
+  if (jsonData.value === undefined) return "Enter your jsonData";
 function getAvailableTimeSlots(jsonData, date) {
   const schedule = jsonData.schedule[date];
   if (!schedule) {

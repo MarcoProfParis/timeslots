@@ -1,5 +1,25 @@
 window.function = async function(jsonData) {
   if (jsonData.value === undefined) return "Enter your jsonData";
+
+
+
+// Example usage:
+
+const allAvailableTimeSlots = getAllAvailableTimeSlots(jsonData);
+return allAvailableTimeSlots;
+}
+
+function getAllAvailableTimeSlots(jsonData) {
+  const allAvailableTimeSlots = {};
+
+  for (const date in jsonData.schedule) {
+    const availableSlots = getAvailableTimeSlots(jsonData, date);
+    allAvailableTimeSlots[date] = availableSlots;
+  }
+
+  return allAvailableTimeSlots;
+}
+
 function getAvailableTimeSlots(jsonData, date) {
   const schedule = jsonData.schedule[date];
   if (!schedule) {
@@ -31,21 +51,4 @@ function getAvailableTimeSlots(jsonData, date) {
   });
 
   return availableTimeSlots;
-}
-
-function getAllAvailableTimeSlots(jsonData) {
-  const allAvailableTimeSlots = {};
-
-  for (const date in jsonData.schedule) {
-    const availableSlots = getAvailableTimeSlots(jsonData, date);
-    allAvailableTimeSlots[date] = availableSlots;
-  }
-
-  return allAvailableTimeSlots;
-}
-
-// Example usage:
-
-const allAvailableTimeSlots = getAllAvailableTimeSlots(jsonData);
-return allAvailableTimeSlots;
 }

@@ -1,10 +1,3 @@
-function convertToTimeSlot(slot) {
-    return {
-        "start_time": `${Math.floor(slot / 4) + 9}:${slot % 4 === 0 ? "00" : slot % 4 * 15}`,
-        "end_time": `${Math.floor(slot / 4) + 9}:${slot % 4 === 0 ? "15" : (slot % 4 + 1) * 15}`
-    };
-}
-
 function removeBookingsFromAvailableSlots(data) {
     const newData = {};
     for (const date in data) {
@@ -35,7 +28,14 @@ function removeBookingsFromAvailableSlots(data) {
                 continuousSlots.push(currentSlot);
             }
 
-            
+            newData[date] = {
+                "new_available_slots": continuousSlots.map(slot => {
+                    return {
+                        "start_time": `${Math.floor(slot[0] / 4) + 9}:${slot[0] % 4 === 0 ? "00" : slot[0] % 4 * 15}`,
+                        "end_time": `${Math.floor(slot[0] / 4) + 9}:${slot[0] % 4 === 0 ? "15" : (slot[0] % 4 + 1) * 15}`
+                    };
+                })
+            };
         }
     }
     return JSON.stringify(newData);

@@ -1,5 +1,5 @@
 window.function = async function(json) {
-  if (jsonData.value === undefined) return "Enter your jsonData";
+  if (json.value === undefined) return "Enter your jsonData";
 let jsonData = JSON.parse(json);
   const allAvailableTimeSlots = {};
 

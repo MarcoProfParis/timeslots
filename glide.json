@@ -1,22 +1,12 @@
 [{
   "kind": "column",
-  "name": "Envoyer un mail avec un code",
+  "name": "find time slot",
   "description": "",
   "author": "Marc Olivier Reula",
   "params": [
     {
-      "name": "url",
-      "displayName": "webhook url",
-      "type": "string"
-    },
-    {
-      "name": "pwd",
-      "displayName": "password",
-      "type": "string"
-    },    
-    {
-      "name": "email",
-      "displayName": "email",
+      "name": "jsonData",
+      "displayName": "jsonData",
       "type": "string"
     }
   ],

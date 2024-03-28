@@ -1,3 +1,23 @@
+function splitArrayIntoConsecutive(arr) {
+    var result = [];
+    var currentChunk = [];
+    
+    for (var i = 0; i < arr.length; i++) {
+        if (i === 0 || arr[i] === arr[i - 1] + 1) {
+            currentChunk.push(arr[i]);
+        } else {
+            result.push(currentChunk);
+            currentChunk = [arr[i]];
+        }
+    }
+    
+    if (currentChunk.length > 0) {
+        result.push(currentChunk);
+    }
+    
+    return result;
+}
+
 function removeBookingsFromAvailableSlots(data) {
   const newData = {};
   for (const date in data) {
@@ -5,7 +25,8 @@ function removeBookingsFromAvailableSlots(data) {
     const bookings = data[date].bookings;
     
     // Filter out bookings from available slots
-    newData[date] = { "new_available_slots": availableSlots.filter(slot => !bookings.includes(slot)) };
+    newData = splitArrayIntoConsecutive(newData);
+console.log('new ',newData);
   }
   
   return JSON.stringify(newData);

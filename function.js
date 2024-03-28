@@ -35,7 +35,7 @@ function removeBookingsFromAvailableSlots(data) {
                 continuousSlots.push(currentSlot);
             }
 
-            newData[date] = { "new_available_slots": continuousSlots.map(slot => convertToTimeSlot(slot[0])) };
+            
         }
     }
     return JSON.stringify(newData);

@@ -7,7 +7,7 @@ window.function = async function(jsonData) {
 
 const allAvailableTimeSlots = getAllAvailableTimeSlots(jsonData);
 return allAvailableTimeSlots;
-}
+};
 
 function getAllAvailableTimeSlots(jsonData) {
   const allAvailableTimeSlots = {};
@@ -18,7 +18,7 @@ function getAllAvailableTimeSlots(jsonData) {
   }
 
   return allAvailableTimeSlots;
-}
+};
 
 function getAvailableTimeSlots(jsonData, date) {
   const schedule = jsonData.schedule[date];

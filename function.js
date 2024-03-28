@@ -1,6 +1,17 @@
 window.function = async function(json) {
-  if (json.value === undefined) return "Enter your jsonData";
-  let jsonData = JSON.parse(json);
+  let jsonData;
+  if (typeof json === 'string') {
+    try {
+      jsonData = JSON.parse(json);
+    } catch (error) {
+      return "Invalid JSON input";
+    }
+  } else if (typeof json === 'object') {
+    jsonData = json;
+  } else {
+    return "Enter your jsonData";
+  }
+
   const allAvailableTimeSlots = {};
 
   for (const date in jsonData.schedule) {

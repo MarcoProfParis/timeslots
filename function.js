@@ -1,4 +1,5 @@
 function removeBookingsFromAvailableSlots(data) {
+  const newData = {};
   for (const date in data) {
     const availableSlots = data[date].available_slots;
     const bookings = data[date].bookings;
@@ -24,17 +25,17 @@ function removeBookingsFromAvailableSlots(data) {
       consecutiveArrays.push(tempArray);
     }
     
-    // Update data with consecutive arrays
-    data[date].available_slots = consecutiveArrays;
+    // Update newData with consecutive arrays
+    newData[date] = consecutiveArrays;
   }
   
-  return data;
+  return newData;
 }
 
 window.function = async function(json) {
     if (json.value === undefined) return "Enter your json";
     let jsonData = JSON.parse(json.value);
 
-    const newData = removeBookingsFromAvailableSlots(jsonData);
-    return JSON.stringify(newData);
+    const result = removeBookingsFromAvailableSlots(jsonData);
+    return JSON.stringify(result);
 }

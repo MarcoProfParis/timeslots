@@ -19,12 +19,6 @@ function removeBookingsFromAvailableSlots(data) {
       
       console.log(`Processing date: ${date}`);
       
-      // If bookings array is empty, all available slots are continuous
-      if (bookings.length === 0) {
-        newData[date] = { "new_available_slots": availableSlots.map(slot => convertToTimeSlot(slot)) };
-        continue; // Move to the next date
-      }
-      
       const continuousSlots = [];
       let currentSlot = null;
       for (const slot of availableSlots) {
@@ -52,6 +46,7 @@ function removeBookingsFromAvailableSlots(data) {
   console.log("Processed data:", newData);
   return newData;
 }
+
 
 
 

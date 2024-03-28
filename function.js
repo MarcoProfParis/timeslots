@@ -4,12 +4,17 @@ window.function = async function(jsonData) {
   const allAvailableTimeSlots = {};
 
   for (const date in jsonData.schedule) {
+    console.log(`Processing date: ${date}`);
     const schedule = jsonData.schedule[date];
     if (!schedule) {
+      console.log(`No schedule found for date: ${date}`);
       return []; // If the date is not found in the schedule, return an empty array
     }
     const availableSlots = schedule.available_slots;
     const bookedSlots = schedule.bookings;
+
+    console.log(`Available slots for date ${date}:`, availableSlots);
+    console.log(`Booked slots for date ${date}:`, bookedSlots);
 
     // Convert booked slots to milliseconds for easier comparison
     const bookedSlotsInMs = bookedSlots.map(slot => {
@@ -17,6 +22,8 @@ window.function = async function(jsonData) {
       const end = new Date(`${date}T${slot.end_time}`).getTime();
       return { start, end };
     });
+
+    console.log(`Booked slots in milliseconds for date ${date}:`, bookedSlotsInMs);
 
     // Filter available slots based on booked slots
     const availableTimeSlots = availableSlots.filter(slot => {
@@ -32,8 +39,11 @@ window.function = async function(jsonData) {
       return true; // Slot is available
     });
 
+    console.log(`Available time slots for date ${date}:`, availableTimeSlots);
+
     allAvailableTimeSlots[date] = availableTimeSlots;
   }
 
+  console.log("All available time slots:", allAvailableTimeSlots);
   return allAvailableTimeSlots;
 }

@@ -43,5 +43,5 @@ window.function = async function(json) {
   if (json.value === undefined) return "Enter your json";
   let jsonData = JSON.parse(json.value);
   
-const result = removeBookingsFromAvailableSlots(data);
+const result = removeBookingsFromAvailableSlots(jsonData);
 return result;}
